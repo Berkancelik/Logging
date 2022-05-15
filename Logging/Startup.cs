@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace Logging
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger _logger;
+        public Startup(IConfiguration configuration,ILogger<Startup> logger)
         {
             Configuration = configuration;
+            this._logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -24,6 +27,7 @@ namespace Logging
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            this._logger.LogInformation("Servisler ayaða kalkýyor.....");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
